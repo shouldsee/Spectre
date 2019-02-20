@@ -4,3 +4,5 @@
 src/lib:
 	dependencies
 
+src/spark:
+	main project

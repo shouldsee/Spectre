@@ -4,5 +4,8 @@
 src/lib:
 	dependencies
 
+src/spectre_plus:
+	as7262 readling + bluetooth transmission for bluefruit 32u4 feather
+
 src/spark:
-	main project
+	old project

@@ -5,7 +5,7 @@ import uuid
 import  Adafruit_BluefruitLE.services as adaServ
 
 def succ():
-    return sys.stderr.write("Success\n")
+    return sys.stderr.write("[Success]\n")
 
 def connectAda(ble,cooldown=1.):
     UUID_BASIC = uuid.UUID('6E400001-B5A3-F393-E0A9-E50E24DCCA9E')
@@ -37,7 +37,7 @@ def connectAda(ble,cooldown=1.):
 #         adapter.stop_scan()
 #         adapter.start_scan()
         sys.stderr.write("[MSG] Finding Device for Service...%s\n"%UUID_BASIC)
-        dev = ble.find_device(service_uuids=[UUID_BASIC],timeout_sec=3)
+        dev = ble.find_device(service_uuids=[UUID_BASIC],timeout_sec=10)
         if dev is None:
             sys.stderr.write("...Retry\n")
             time.sleep(cooldown)
@@ -55,7 +55,7 @@ def connectAda(ble,cooldown=1.):
     
         sys.stderr.write("[MSG] Connecting to Device:%s\n"%UUID_BASIC)
         try:
-            dev.connect(timeout_sec = 5)
+            dev.connect(timeout_sec = 10)
         except RuntimeError as e:
             sys.stderr.write("[IGNORE]%s\n"%e)
             
@@ -92,7 +92,8 @@ def main(ble, dt = 0.5):
     chars = connectAda(ble)
     try:
         sys.stderr.write('[MSG] Starting recording\n')
-        header = 'time,blue,green\n'
+#         header = 'time,blue,green\n'
+        header = 'time, led1, violet, blue, green \n'.replace(' ','')
         stdout.write(header)
         while True:
             dval = chars.RX.read_value()
@@ -147,6 +148,9 @@ if __name__ =='__main__':
 
     sys.stderr.write("[MSG] Initializing...")
     ble.initialize()
+    adapter = ble.get_default_adapter()
+    if not adapter.is_scanning:
+        adapter._adapter.StartDiscovery()    
     succ()
     while True:
         try:

@@ -1,11 +1,26 @@
+## Arduino Sketch for SpectrePlus spectrometer and other prototypes
 
-## arduino code for sensing from AS7262 and transmit to bluetooth
+SpectrePlus is an amateur device that uses an AS7262 to sense fluorescence from 
+a PCR tube and transmit the data over bluetooth to a laptop.
 
-src/lib:
-	dependencies
+- ./lib: dependencies
+- ./spectre_plus: firmware for as7262 reading + bluetooth transmission for bluefruit 32u4 feather
+- ./spectre_zero: firmware for the Arudino-Uno-based device.
+- ./spectre_zero_double: firmware for the Arudino-Uno-based device. This device meausres two PCR tubes
+separately.
+- ./util_script: scripts for testing ble and receving data.
+  - ./util_script/readAda.py
 
-src/spectre_plus:
-	as7262 readling + bluetooth transmission for bluefruit 32u4 feather
+### QuickStart: Upload `spectre_plus/`
 
-src/spark:
-	old project
+- copy the content of `lib/` folder to 
+- Use arduino IDE to open the sketch under `spectre_plus/`.
+- Connect your arduino to your laptop
+- Select the right "Port" in the dropdown menu.
+- Select the right board type in dropdown menu.
+- Select compile and upload in the dropdown menu/button.
+
+### ToDo
+
+- Simplify this workflow with gnu-make
+- drop dependency on ArudinoIDE and use plain C++.

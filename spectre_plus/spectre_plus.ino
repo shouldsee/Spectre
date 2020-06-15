@@ -199,20 +199,15 @@ void loop(void)
   ble.print("AT+BLEUARTTX=");
 //  {
     char ss[256];
-//    sprintf( ss, "%d,\\n", brightness1 );
     int greenRatio  = ( float(green - blue) / (green + blue ) ) *1000;
     sprintf( ss, "%d\\n", greenRatio );
-//    sprintf( ss, "%d,%d\\n", blue,green );
     Serial.println(ss);
     ble.println(ss);
+//    sprintf( ss, "%d,\\n", brightness1 );
+//    sprintf( ss, "%d,%d\\n", blue,green );
 //  }
 
 
-//   Serial.println("1");
-//   Serial.println("asdfkljsfadl");
-//   Serial.println("2");
-//   Serial.println("3");
-//   sig = sig - 20 * (int(sig) / 20);   
    
   // Check for user input
   char inputs[BUFSIZE+1];
